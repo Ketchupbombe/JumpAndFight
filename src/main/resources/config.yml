@@ -1,0 +1,14 @@
+###############################################
+#############JUMP-AND-FIGHT-PLUGIN#############
+################BY KETCHUPBOMBE################
+###############################################
+#
+#
+#
+#~~~~~~~~~~~~~~~~~~MySQL-Data~~~~~~~~~~~~~~~~~~
+MySQL:
+  host: 'localhost'
+  port: 3306
+  database: 'JumpAndFight'
+  username: 'Ketchupbombe'
+  password: 'admin'
