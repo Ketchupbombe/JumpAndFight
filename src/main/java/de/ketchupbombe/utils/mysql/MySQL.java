@@ -30,6 +30,7 @@ public class MySQL {
     public boolean connect() {
         if (!isConnected()) {
             try {
+                //set connection
                 connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?autoreconnect=true",
                         username, password);
                 return true;
@@ -44,6 +45,7 @@ public class MySQL {
     public boolean close() {
         if (isConnected()) {
             try {
+                //close connection
                 connection.close();
                 return true;
             } catch (SQLException e) {
@@ -55,11 +57,13 @@ public class MySQL {
     }
 
     public void update(String sql) {
+        //update async
         JumpAndFight.getInstance().getExecutor().execute(() -> updateSync(sql));
     }
 
     public void updateSync(String sql) {
         try {
+            //update sync
             PreparedStatement ps = this.connection.prepareStatement(sql);
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -68,6 +72,7 @@ public class MySQL {
     }
 
     public ResultSet getResult(String qry) {
+        //get Result sync
         if (isConnected()) {
             try {
                 PreparedStatement ps = this.connection.prepareStatement(qry);
@@ -81,5 +86,10 @@ public class MySQL {
 
     public boolean isConnected() {
         return connection != null;
+    }
+
+    public void loadMySQLTable() {
+        //Modules Table
+        this.update("CREATE TABLE IF NOT EXISTS jump_and_fight_modules(location1 VARCHAR(250), location2 VARCHAR(250), author VARCHAR(30), module_difficulty INT(1), enabled BOOLEAN);");
     }
 }
